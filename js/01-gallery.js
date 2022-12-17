@@ -32,17 +32,22 @@ function onGallerryImageClick(event) {
   }
 
   const activeImageURL = event.target.dataset.source;
-  modalImage = basicLightbox.create(`<img src="${activeImageURL}">`);
-  modalImage.show(addKeyboardListenerToGallery);
+  modalImage = basicLightbox.create(`<img src="${activeImageURL}">`, {
+    onShow: addKeyboardListenerToGallery,
+    onClose: removeKeyboardListenerFromGallery,
+  });
+
+  modalImage.show();
 }
 
 function onModalKeypressed(event) {
-  // console.log("key: ", event.key);
+  console.log("key is steel logging: ", event.key);
   if (event.key !== "Escape") {
     return;
   }
 
-  modalImage.close(removeKeyboardListenerFromGallery);
+  // modalImage.close(removeKeyboardListenerFromGallery);
+  modalImage.close();
 }
 
 function addKeyboardListenerToGallery() {
